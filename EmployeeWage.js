@@ -1,4 +1,4 @@
-/** UC6 Calculate daily wage with total wage */
+//UC8 Store the day and daily wage along with total wage  
 const IS_PART_TIME = 1;
 const IS_FULL_TIME = 2;
 const PART_TIME_HOURS = 4;
@@ -7,6 +7,7 @@ const WAGE_PER_HOUR = 20;
 const NUM_OF_WORKING_DAYS = 20;
 const MAX_HRS_IN_MONTH = 160;
 let empDailyWageArr = new Array();
+let empDailyWageMap = new Map();
 
 function getWorkingHours(empCheck) {
     switch (empCheck) {
@@ -32,6 +33,7 @@ while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS
     let empHrs = getWorkingHours(empCheck);
     totalEmpHrs += empHrs;
     empDailyWageArr.push(calculateDailyWage(empHrs));
+    empDailyWageMap.set(totalWorkingDays, calculateDailyWage(empHrs));
 }
 
 let empWage = totalEmpHrs * WAGE_PER_HOUR;
@@ -95,3 +97,16 @@ function totalDaysWorked(numOfDays, dailyWage) {
 }
 let numOfWorkingDays = empDailyWageArr.reduce(totalDaysWorked, 0);
 console.log("7g Total number of days employee worked :" + numOfWorkingDays);
+
+//UC8 Store the day and daily wage along with total wage  
+console.log("UC8 Store the day and daily wage:");
+console.log(empDailyWageMap);
+
+console.log("Total wage using reduce method :" + Array.from(empDailyWageMap.values()).reduce(totalWages, 0));
+
+let totalWagesUsingMap = 0;
+function totalWagesMap(dailyWage) {
+    totalWagesUsingMap += dailyWage;
+}
+Array.from(empDailyWageMap.values()).map(totalWagesMap)
+console.log("Total wage using map method :" + totalWagesUsingMap);
