@@ -12,6 +12,7 @@ let empDailyHrsMap = new Map();
 let fullWorkingDays = new Array();
 let partWorkingDays = new Array();
 let nonWorkingDays = new Array();
+let empDailyHrsAndWageArr = new Array();
 
 function getWorkingHours(empCheck) {
     switch (empCheck) {
@@ -36,6 +37,14 @@ while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS
     let empCheck = Math.floor(Math.random() * 10) % 3;
     let empHrs = getWorkingHours(empCheck);
     totalEmpHrs += empHrs;
+    empDailyHrsAndWageArr.push({
+        day: totalWorkingDays,
+        dailyHours: empHrs,
+        dailyWage: calculateDailyWage(empHrs),
+        toString() {
+            return "\n Day " + this.day + " => Daily Working Hours " + this.dailyHours + " Daily wage = " + this.dailyWage
+        },
+    });
     empDailyWageArr.push(calculateDailyWage(empHrs));
     empDailyWageMap.set(totalWorkingDays, calculateDailyWage(empHrs));
     empDailyHrsMap.set(totalWorkingDays, empHrs);
@@ -149,3 +158,8 @@ empDailyHrsMap.forEach((value, key) => {
 console.log("Full Working Days :" + fullWorkingDays);
 console.log("Part Working Days :" + partWorkingDays);
 console.log("Non Working Days :" + nonWorkingDays);
+
+//UC 10 Store the day, hours worked and wage earned in single object
+console.log("UC10 Use of JS Object Creation :");
+console.log("Day, Daily hours and wage using single object: ");
+console.log(empDailyHrsAndWageArr);
