@@ -1,4 +1,4 @@
-//UC9 Use of Arrow Functions
+/** UC11 Objects Opeartions using arrow functions */
 const IS_PART_TIME = 1;
 const IS_FULL_TIME = 2;
 const PART_TIME_HOURS = 4;
@@ -163,3 +163,45 @@ console.log("Non Working Days :" + nonWorkingDays);
 console.log("UC10 Use of JS Object Creation :");
 console.log("Day, Daily hours and wage using single object: ");
 console.log(empDailyHrsAndWageArr);
+
+//UC11 Object operatins using arrow functions
+console.log("UC11 Object operatins using arrow functions :");
+//11a Calculate total wage and total hours worked
+let totalWagee = empDailyHrsAndWageArr.reduce((totalWage, empDailyHrsAndWageArrObject) => {
+    return totalWage += empDailyHrsAndWageArrObject.dailyWage;
+},
+    0);
+console.log("UC11a Total Wage :" + totalWagee);
+
+let totalHours = empDailyHrsAndWageArr.reduce((totalHours, empDailyHrsAndWageArrObject) => {
+    return totalHours += empDailyHrsAndWageArrObject.dailyHours;
+},
+    0);
+console.log("UC11a Total Hours :" + totalHours);
+
+//11b Show full working days using foreach
+console.log("UC11b Full Working Days : ");
+empDailyHrsAndWageArr.forEach(empDailyHrsAndWageArrObject => {
+    if (empDailyHrsAndWageArrObject.dailyHours == FULL_TIME_HOURS) {
+        console.log(empDailyHrsAndWageArrObject);
+    }
+}
+)
+//11b other way
+console.log("11b Other way :")
+empDailyHrsAndWageArr
+    .filter(empDailyHrsAndWageArrObject => empDailyHrsAndWageArrObject.dailyHours == FULL_TIME_HOURS)
+    .forEach(dailyWorkHrs => console.log(dailyWorkHrs));
+
+//11c part working days using map by reducing to String array
+console.log("UC11c Part Working Days : ");
+let partWorkingDayStrArr = empDailyHrsAndWageArr
+    .filter(empDailyHrsAndWageArrObject => empDailyHrsAndWageArrObject.dailyHours == PART_TIME_HOURS)
+    .map(empDailyHrsAndWageArrObject => empDailyHrsAndWageArrObject);
+console.log(partWorkingDayStrArr);
+
+console.log("UC11d No Working Days : ");
+let noWorkingDays = empDailyHrsAndWageArr
+    .filter(empDailyHrsAndWageArrObject => empDailyHrsAndWageArrObject.dailyHours == 0)
+    .map(empDailyHrsAndWageArrObject => empDailyHrsAndWageArrObject);
+console.log(noWorkingDays);
